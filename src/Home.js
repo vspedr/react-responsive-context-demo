@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { Context as ResponsiveContext } from 'react-responsive';
+import MediaQuery, { Context as ResponsiveContext } from 'react-responsive';
 import { Desktop, Mobile } from './Responsive';
 class Home extends Component {
   static async getInitialProps({ req, res, match, history, location, ...ctx }) {
@@ -18,7 +18,12 @@ class Home extends Component {
           <TestContext.Consumer>
             {(values) => {
               console.warn({ values });
-              return null;
+              return (
+                <div>
+                  <h1>Plain React context</h1>
+                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                </div>
+              );
             }}
           </TestContext.Consumer>
         </TestContext.Provider >
@@ -27,7 +32,12 @@ class Home extends Component {
         <ResponsiveContext.Consumer>
           {(values) => {
             console.warn({ values });
-            return null;
+            return (
+              <div>
+                <h1>react-responsive context</h1>
+                <pre>{JSON.stringify(values, null, 2)}</pre>
+              </div>
+            );
           }}
         </ResponsiveContext.Consumer>
 
@@ -38,6 +48,13 @@ class Home extends Component {
         <Mobile>
           <p>I should be rendered on screens 960px and below</p>
         </Mobile>
+
+        <MediaQuery values={{width: 500}} minWidth={600} >
+          I should not be rendered
+        </MediaQuery>
+        <MediaQuery values={{width: 700}} minWidth={600} >
+          I should be rendered
+        </MediaQuery>
       </div>
     );
   }
