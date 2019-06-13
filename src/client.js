@@ -8,11 +8,11 @@ import routes from './routes';
 
 ensureReady(routes).then(data =>
   hydrate(
-      <ResponsiveContext.Provider value={{ width: 600 }}>
-    <BrowserRouter>
-        <After data={data} routes={routes} />
-    </BrowserRouter>
-      </ResponsiveContext.Provider>,
+    <ResponsiveContext.Provider value={{ width: 600 }}>
+      <BrowserRouter>
+          <After data={data} routes={routes} />
+      </BrowserRouter>
+    </ResponsiveContext.Provider>,
     document.getElementById('root')
   )
 );
